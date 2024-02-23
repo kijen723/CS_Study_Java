@@ -21,9 +21,12 @@ public class Combination {
         }
 
         combination.add(arr[depth]);
+
         combination(arr, n, r, depth + 1, combination);
+
         // combination.remove(subset.size() - 1); // Until Java 10
         combination.removeLast();
+
         combination(arr, n, r, depth + 1, combination);
     }
 
@@ -57,7 +60,6 @@ public class Combination {
         System.out.println("Number of Combinations : (n!) / (r!(n - r)!) = "
                 + fc.factorial(n) / (fc.factorial(r) * fc.factorial(n - r)) + " = "
                 + cm.get().size() + "\n");
-
         System.out.println("Combinations of arr : \n" + cm);
     }
 }
