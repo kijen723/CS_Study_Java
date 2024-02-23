@@ -14,7 +14,9 @@ public class PowerSet {
 
         for (int i = start; i < n; i++) {
             subset.add(arr[i]);
+
             powerSet(arr, n, i + 1, subset);
+
             // subset.remove(subset.size() - 1); // Until Java 10
             subset.removeLast();
         }
