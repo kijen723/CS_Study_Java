@@ -23,11 +23,13 @@ public class Permutation {
         for (int i = 0; i < n; i++) {
             if (!visited[i]) {
                 visited[i] = true;
+
                 permutation.add(arr[i]);
 
                 permutation(arr, n, r, depth + 1, permutation, visited);
 
                 visited[i] = false;
+
                 permutation.remove(permutation.size() - 1); // Until Java 10
                 // permutation.removeLast();
             }
