@@ -24,8 +24,8 @@ public class Combination {
 
         combination(arr, n, r, depth + 1, combination);
 
-        // combination.remove(subset.size() - 1); // Until Java 10
-        combination.removeLast();
+        combination.remove(combination.size() - 1); // Until Java 10
+        // combination.removeLast();
 
         combination(arr, n, r, depth + 1, combination);
     }
