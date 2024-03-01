@@ -3,7 +3,7 @@ package com.kijen.cs.search;
 import java.util.Arrays;
 
 public class DepthFirstSearch {
-    private static void depthFirstSearch(int r, int c, int R, int C, int[][] arr, boolean[][] visited) {
+    private void depthFirstSearch(int r, int c, int R, int C, int[][] arr, boolean[][] visited) {
         if (r == R - 1 & c == C - 1) {
             for (int[] a : arr) {
                 System.out.println(Arrays.toString(a));
@@ -29,13 +29,11 @@ public class DepthFirstSearch {
             }
 
             visited[nr][nc] = true;
-
             arr[nr][nc] = arr[r][c] + 1;
 
             depthFirstSearch(nr, nc, R, C, arr, visited);
 
             visited[nr][nc] = false;
-
             arr[nr][nc] = 0;
         }
     }
@@ -49,7 +47,9 @@ public class DepthFirstSearch {
         arr[0][0] = 1;
         visited[0][0] = true;
 
+        DepthFirstSearch dfs = new DepthFirstSearch();
+
         System.out.println("Paths from (0, 0) to (r - 1, c - 1) in DFS: ");
-        depthFirstSearch(0, 0, r, c, arr, visited);
+        dfs.depthFirstSearch(0, 0, r, c, arr, visited);
     }
 }
