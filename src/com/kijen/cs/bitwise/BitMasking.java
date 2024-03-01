@@ -5,12 +5,16 @@ import java.util.Arrays;
 
 public class BitMasking {
     public static void main(String[] args) {
-        int[][] dir = {
-                {0, 1},
-                {1, 0},
-                {0, -1},
-                {-1, 0}
-        };
+        System.out.println("BitMasking in BFS 1:");
+        bitMaskingInBFS1();
+
+        System.out.println("BitMasking in BFS 2:");
+        bitMaskingInBFS2();
+    }
+
+    private static void bitMaskingInBFS1() {
+        int[][] dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+
         int[][] arr = {
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
@@ -19,17 +23,8 @@ public class BitMasking {
                 {0, 0, 0, 0, 0}
         };
 
-        // 방문배열
-//        boolean[][] visited = new boolean[5][5];
-//        visited[0][0] = true;
-
-        // 비트마스킹 1
-//        int[] visited = new int[5];
-//        visited[0] = 1;
-
-        // 비트마스킹 2
-        int visited = 0;
-        visited |= (1 << 0);
+        int[] visited = new int[5];
+        visited[0] = 1;
 
         ArrayDeque<int[]> queue = new ArrayDeque<>();
         queue.offer(new int[] {0, 0, 1});
@@ -45,21 +40,52 @@ public class BitMasking {
                     continue;
                 }
 
-                // 방문배열
-//                if (visited[nr][nc]) {
-//                    continue;
-//                }
-//
-//                visited[nr][nc] = true;
+                if ((visited[nr] & (1 << nc)) > 0) {
+                    continue;
+                }
 
-                // 비트마스킹 1
-//                if ((visited[nr] & (1 << nc)) > 0) {
-//                    continue;
-//                }
-//
-//                visited[nr] |= (1 << nc);
+                visited[nr] |= (1 << nc);
 
-                // 비트마스킹 2
+                arr[nr][nc] = cur[2];
+                queue.offer(new int[] {nr, nc, cur[2] + 1});
+            }
+        }
+
+        for (int[] a : arr) {
+            System.out.println(Arrays.toString(a));
+        }
+
+        System.out.println();
+    }
+
+    private static void bitMaskingInBFS2() {
+        int[][] dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+
+        int[][] arr = {
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0}
+        };
+
+        int visited = 0;
+        visited |= 1;
+
+        ArrayDeque<int[]> queue = new ArrayDeque<>();
+        queue.offer(new int[] {0, 0, 1});
+
+        while (!queue.isEmpty()) {
+            int[] cur = queue.poll();
+
+            for (int[] d : dir) {
+                int nr = cur[0] + d[0];
+                int nc = cur[1] + d[1];
+
+                if (nr < 0 || nr >= 5 || nc < 0 || nc >= 5) {
+                    continue;
+                }
+
                 if ((visited & (1 << (nr * 5 + nc))) > 0) {
                     continue;
                 }
@@ -74,5 +100,7 @@ public class BitMasking {
         for (int[] a : arr) {
             System.out.println(Arrays.toString(a));
         }
+
+        System.out.println();
     }
 }
