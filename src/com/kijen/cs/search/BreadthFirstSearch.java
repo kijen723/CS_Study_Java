@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 
 public class BreadthFirstSearch {
-    private static void breadthFirstSearch(int r, int c, int[][] arr, boolean[][] visited) {
+    private void breadthFirstSearch(int r, int c, int[][] arr, boolean[][] visited) {
         int[][] dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
         ArrayDeque<int[]> queue = new ArrayDeque<>();
@@ -48,7 +48,9 @@ public class BreadthFirstSearch {
         arr[0][0] = 1;
         visited[0][0] = true;
 
+        BreadthFirstSearch bfs = new BreadthFirstSearch();
+
         System.out.println("Visit level in BFS: ");
-        breadthFirstSearch(r, c, arr, visited);
+        bfs.breadthFirstSearch(r, c, arr, visited);
     }
 }
