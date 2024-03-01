@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 
 public class BitMasking {
-    private static void bitMaskingInBFS1(int r, int c) {
+    private void bitMaskingInBFS1(int r, int c) {
         int[][] dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
         int[][] arr = new int[r][c];
@@ -44,7 +44,7 @@ public class BitMasking {
         System.out.println();
     }
 
-    private static void bitMaskingInBFS2(int r, int c) {
+    private void bitMaskingInBFS2(int r, int c) {
         if (r * c > 32) {
             System.out.println("r * c must be 32 or less");
 
@@ -91,13 +91,15 @@ public class BitMasking {
     }
 
     public static void main(String[] args) {
-        int r = 6;
-        int c = 6;
+        int r = 5;
+        int c = 5;
+
+        BitMasking bm = new BitMasking();
 
         System.out.println("BitMasking in BFS 1:");
-        bitMaskingInBFS1(r, c);
+        bm.bitMaskingInBFS1(r, c);
 
         System.out.println("BitMasking in BFS 2:");
-        bitMaskingInBFS2(r, c);
+        bm.bitMaskingInBFS2(r, c);
     }
 }
