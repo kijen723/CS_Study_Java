@@ -4,18 +4,12 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 
 public class BitMasking {
-    private static void bitMaskingInBFS1() {
+    private static void bitMaskingInBFS1(int r, int c) {
         int[][] dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
-        int[][] arr = {
-                {0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0}
-        };
+        int[][] arr = new int[r][c];
 
-        int[] visited = new int[5];
+        int[] visited = new int[r];
         visited[0] = 1;
 
         ArrayDeque<int[]> queue = new ArrayDeque<>();
@@ -28,7 +22,7 @@ public class BitMasking {
                 int nr = cur[0] + d[0];
                 int nc = cur[1] + d[1];
 
-                if (nr < 0 || nr >= 5 || nc < 0 || nc >= 5) {
+                if (nr < 0 || nr >= r || nc < 0 || nc >= c) {
                     continue;
                 }
 
@@ -50,16 +44,16 @@ public class BitMasking {
         System.out.println();
     }
 
-    private static void bitMaskingInBFS2() {
+    private static void bitMaskingInBFS2(int r, int c) {
+        if (r * c > 32) {
+            System.out.println("r * c must be 32 or less");
+
+            return;
+        }
+
         int[][] dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
-        int[][] arr = {
-                {0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0}
-        };
+        int[][] arr = new int[r][c];
 
         int visited = 0;
         visited |= 1;
@@ -74,15 +68,15 @@ public class BitMasking {
                 int nr = cur[0] + d[0];
                 int nc = cur[1] + d[1];
 
-                if (nr < 0 || nr >= 5 || nc < 0 || nc >= 5) {
+                if (nr < 0 || nr >= r || nc < 0 || nc >= c) {
                     continue;
                 }
 
-                if ((visited & (1 << (nr * 5 + nc))) > 0) {
+                if ((visited & (1 << ((nr * c) + nc))) > 0) {
                     continue;
                 }
 
-                visited |= (1 << (nr * 5 + nc));
+                visited |= (1 << ((nr * c) + nc));
 
                 arr[nr][nc] = cur[2];
                 queue.offer(new int[] {nr, nc, cur[2] + 1});
@@ -97,10 +91,13 @@ public class BitMasking {
     }
 
     public static void main(String[] args) {
+        int r = 6;
+        int c = 6;
+
         System.out.println("BitMasking in BFS 1:");
-        bitMaskingInBFS1();
+        bitMaskingInBFS1(r, c);
 
         System.out.println("BitMasking in BFS 2:");
-        bitMaskingInBFS2();
+        bitMaskingInBFS2(r, c);
     }
 }
