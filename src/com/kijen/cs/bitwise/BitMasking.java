@@ -4,14 +4,6 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 
 public class BitMasking {
-    public static void main(String[] args) {
-        System.out.println("BitMasking in BFS 1:");
-        bitMaskingInBFS1();
-
-        System.out.println("BitMasking in BFS 2:");
-        bitMaskingInBFS2();
-    }
-
     private static void bitMaskingInBFS1() {
         int[][] dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
@@ -102,5 +94,13 @@ public class BitMasking {
         }
 
         System.out.println();
+    }
+
+    public static void main(String[] args) {
+        System.out.println("BitMasking in BFS 1:");
+        bitMaskingInBFS1();
+
+        System.out.println("BitMasking in BFS 2:");
+        bitMaskingInBFS2();
     }
 }
