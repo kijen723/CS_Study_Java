@@ -28,8 +28,8 @@ public class Permutation {
                 permutation(arr, n, r, depth + 1, permutation, visited);
 
                 visited[i] = false;
-                // permutation.remove(subset.size() - 1); // Until Java 10
-                permutation.removeLast();
+                permutation.remove(permutation.size() - 1); // Until Java 10
+                // permutation.removeLast();
             }
         }
     }
