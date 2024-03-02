@@ -12,12 +12,12 @@ public class MyArrayList<E> {
         this.elementData = new Object[DEFAULT_CAPACITY];
     }
 
-    public MyArrayList(int initialCapacity) {
-        if (initialCapacity > 0) {
-            this.elementData = new Object[initialCapacity];
-        } else {
-            throw new IllegalArgumentException("Illegal Capacity: " + initialCapacity);
-        }
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public int size() {
+        return size;
     }
 
     private void resize() {
@@ -32,18 +32,14 @@ public class MyArrayList<E> {
         }
     }
 
-    public boolean add(E data) {
-        resize();
-
-        elementData[size++] = data;
-
-        return true;
-    }
-
-    public boolean add(int index, E data) {
+    private void checkBounds(int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Index out of bounds: " + index);
         }
+    }
+
+    public void add(int index, E data) {
+        checkBounds(index);
 
         resize();
 
@@ -53,25 +49,10 @@ public class MyArrayList<E> {
 
         elementData[index] = data;
         size++;
-
-        return true;
-    }
-
-    public E remove() {
-        if (isEmpty()) throw new IllegalArgumentException("Empty List");
-
-        Object result = elementData[--size];
-        elementData[size] = null;
-
-        resize();
-
-        return (E) result;
     }
 
     public E remove(int index) {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
-        }
+        checkBounds(index);
 
         Object result = elementData[index];
 
@@ -86,20 +67,19 @@ public class MyArrayList<E> {
         return (E) result;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    public int size() {
-        return size;
-    }
-
     public E get(int index) {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
-        }
+        checkBounds(index);
 
         return (E) elementData[index];
+    }
+
+    public E set(int index, E data) {
+        checkBounds(index);
+
+        E result = (E) elementData[index];
+        elementData[index] = data;
+
+        return result;
     }
 
     public int indexOf(E data) {
@@ -120,34 +100,6 @@ public class MyArrayList<E> {
         return -1;
     }
 
-    public int LastIndexOf(E data) {
-        if (data == null) {
-            for (int i = size - 1; i >= 0; i--) {
-                if (elementData[i] == null) {
-                    return i;
-                }
-            }
-        } else {
-            for (int i = size - 1; i >= 0; i--) {
-                if (data.equals(elementData[i])) {
-                    return i;
-                }
-            }
-        }
-
-        return -1;
-    }
-
-    public boolean set(int index, E data) {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
-        }
-
-        elementData[index] = data;
-
-        return true;
-    }
-
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append("[");
@@ -160,29 +112,32 @@ public class MyArrayList<E> {
 
         return result.toString();
     }
-    // contains
-    // addAll
-    // clear
-    // subList
-    // removeall
-    // retainall
-    // getordefault
-    // iterator
-    // clone
-    // toArray
 
     public static void main(String[] args) {
-        MyArrayList<Integer> a = new MyArrayList<>();
-        Integer b = null;
+        MyArrayList<Integer> mal = new MyArrayList<>();
 
-        a.add(1234);
-        a.add(null);
-        a.add(5);
-        a.get(0);
-//        System.out.println(a.indexOf(5));
-        System.out.println(a.toString());
-//        for (Integer i : a) {
-//            System.out.println(i);
-//        }
+        System.out.println("isEmpty() : " + mal.isEmpty());
+
+        mal.add(0, 3);
+        mal.add(0, 2);
+        mal.add(0, 1);
+        mal.add(3, 4);
+        System.out.println("After add(...) : " + mal);
+
+        System.out.println("isEmpty() : " + mal.isEmpty());
+
+        System.out.println("size() : " + mal.size());
+
+        mal.set(3, 5);
+        System.out.println("After set(3, 5) : " + mal);
+
+        mal.remove(3);
+        System.out.println("remove(3) : " + mal);
+
+        System.out.println("size : " + mal.size());
+
+        System.out.println("indexOf(2) : " + mal.indexOf(2));
+
+        System.out.println("get(1) : " + mal.get(1));
     }
 }
